@@ -1,0 +1,73 @@
+
+timer_attiny13a.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000004c  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  0000004c  000000c0  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000011  00000000  00000000  000000c0  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000000d4  2**2
+                  CONTENTS, READONLY
+  4 .debug_info   000002b8  00000000  00000000  00000110  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 00000294  00000000  00000000  000003c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   0000001a  00000000  00000000  0000065c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_str    000000f6  00000000  00000000  00000676  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	09 c0       	rjmp	.+18     	; 0x14 <__ctors_end>
+   2:	0e c0       	rjmp	.+28     	; 0x20 <__bad_interrupt>
+   4:	0d c0       	rjmp	.+26     	; 0x20 <__bad_interrupt>
+   6:	0c c0       	rjmp	.+24     	; 0x20 <__bad_interrupt>
+   8:	0b c0       	rjmp	.+22     	; 0x20 <__bad_interrupt>
+   a:	0a c0       	rjmp	.+20     	; 0x20 <__bad_interrupt>
+   c:	09 c0       	rjmp	.+18     	; 0x20 <__bad_interrupt>
+   e:	08 c0       	rjmp	.+16     	; 0x20 <__bad_interrupt>
+  10:	07 c0       	rjmp	.+14     	; 0x20 <__bad_interrupt>
+  12:	06 c0       	rjmp	.+12     	; 0x20 <__bad_interrupt>
+
+00000014 <__ctors_end>:
+  14:	11 24       	eor	r1, r1
+  16:	1f be       	out	0x3f, r1	; 63
+  18:	cf e9       	ldi	r28, 0x9F	; 159
+  1a:	cd bf       	out	0x3d, r28	; 61
+  1c:	02 d0       	rcall	.+4      	; 0x22 <main>
+  1e:	14 c0       	rjmp	.+40     	; 0x48 <_exit>
+
+00000020 <__bad_interrupt>:
+  20:	ef cf       	rjmp	.-34     	; 0x0 <__vectors>
+
+00000022 <main>:
+  22:	b8 9a       	sbi	0x17, 0	; 23
+  24:	c0 9a       	sbi	0x18, 0	; 24
+  26:	91 e0       	ldi	r25, 0x01	; 1
+  28:	89 ee       	ldi	r24, 0xE9	; 233
+  2a:	2f eb       	ldi	r18, 0xBF	; 191
+  2c:	34 ed       	ldi	r19, 0xD4	; 212
+  2e:	41 e0       	ldi	r20, 0x01	; 1
+  30:	21 50       	subi	r18, 0x01	; 1
+  32:	30 40       	sbci	r19, 0x00	; 0
+  34:	40 40       	sbci	r20, 0x00	; 0
+  36:	e1 f7       	brne	.-8      	; 0x30 <main+0xe>
+  38:	00 c0       	rjmp	.+0      	; 0x3a <main+0x18>
+  3a:	00 00       	nop
+  3c:	81 50       	subi	r24, 0x01	; 1
+  3e:	a9 f7       	brne	.-22     	; 0x2a <main+0x8>
+  40:	88 b3       	in	r24, 0x18	; 24
+  42:	89 27       	eor	r24, r25
+  44:	88 bb       	out	0x18, r24	; 24
+  46:	f0 cf       	rjmp	.-32     	; 0x28 <main+0x6>
+
+00000048 <_exit>:
+  48:	f8 94       	cli
+
+0000004a <__stop_program>:
+  4a:	ff cf       	rjmp	.-2      	; 0x4a <__stop_program>
